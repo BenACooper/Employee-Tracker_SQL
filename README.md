@@ -19,7 +19,8 @@
     
   ## Usage
   An initial set of prompts will guide you through the process. After that simply answer the questions or make the choices as presented. Choosing to view the database can confirm it is working.
-  //Screenshot or Video here
+ 
+ [Video Demo: ](https://drive.google.com/file/d/1ziaPxWyqvDFzLXP07Rh8utd4W9s_Q4oo/view)
 
   ## License
   This project is licensed under the MIT License.

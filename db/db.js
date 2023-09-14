@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
 // Create a MySQL connection
@@ -8,6 +8,9 @@ const db = mysql.createConnection({
   password: "password",
   database: "employees_db",
 });
+
+// Upgrade the non-Promise connection to use Promises
+const dbPromise = db.promise();
 
 // Function to execute SQL query to view all departments.
 const viewAllDepartments = async () => {

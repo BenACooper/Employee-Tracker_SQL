@@ -48,24 +48,31 @@ const startApp = async () => {
     switch (choice) {
       case "View all departments":
         await viewAllDepartments();
+        startApp();
         break;
       case "View all roles":
         await viewAllRoles();
+        startApp();
         break;
       case "View all employees":
         await viewAllEmployees();
+        startApp();
         break;
       case "Add a department":
         await addDepartment();
+        startApp();
         break;
       case "Add a role":
         await addRole();
+        startApp();
         break;
       case "Add an employee":
         await addEmployee();
+        startApp();
         break;
       case "Update an employee role":
         await updateEmployeeRole();
+        startApp();
         break;
       case "Exit":
         console.log("Exiting the application.");
