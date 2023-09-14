@@ -10,7 +10,7 @@ const {
   addRole,
   addEmployee,
   updateEmployeeRole,
-} = require("./db");
+} = require("./db/db.js");
 
 // Create a MySQL connection
 const connection = mysql.createConnection({
@@ -20,15 +20,14 @@ const connection = mysql.createConnection({
   database: "employees_db",
 });
 
-// WHEN I start the application
-// THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-function startApp() {
-  inquirer
-    .prompt([
+// Call the correct prepared statement based on users answers.
+const startApp = async () => {
+  try {
+    const answers = await inquirer.prompt([
       {
         type: "list",
         name: "menuChoice",
-        message: "What woulkd you like to do?",
+        message: "What would you like to do?",
         choices: [
           "View all departments",
           "View all roles",
@@ -40,40 +39,42 @@ function startApp() {
           "Exit", // You can add an exit option if needed
         ],
       },
-    ])
-    .then((answers) => {
-      // Handle the user's choice here
-      const choice = answers.menuChoice;
+    ]);
 
-      // Call the correct prepared statements based on the user's choice
-      switch (choice) {
-        case "View all departments":
-          viewAllDepartments();
-          break;
-        case "View all roles":
-          viewAllRoles();
-          break;
-        case "View all employees":
-          viewAllEmployees();
-          break;
-        case "Add a department":
-          addDepartemnt();
-          break;
-        case "Add a role":
-          addRole();
-          break;
-        case "Add an employee":
-          addEmployee();
-          break;
-        case "Update an employee role":
-          updateEmployeeRole();
-          break;
-        case "Exit":
-          console.log("Exiting the application.");
-          process.exit(); // Terminate the Node.js process
-      }
-    });
-}
+    // Handle the user's choice here
+    const choice = answers.menuChoice;
+
+    // Call the correct prepared statements based on the user's choice
+    switch (choice) {
+      case "View all departments":
+        await viewAllDepartments();
+        break;
+      case "View all roles":
+        await viewAllRoles();
+        break;
+      case "View all employees":
+        await viewAllEmployees();
+        break;
+      case "Add a department":
+        await addDepartment();
+        break;
+      case "Add a role":
+        await addRole();
+        break;
+      case "Add an employee":
+        await addEmployee();
+        break;
+      case "Update an employee role":
+        await updateEmployeeRole();
+        break;
+      case "Exit":
+        console.log("Exiting the application.");
+        process.exit(); // Terminate the Node.js process
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
 
 // Call the startApp function to begin the application
 startApp();
